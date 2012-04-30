@@ -1,0 +1,17 @@
+<h2>User Details</h2>
+
+<h3>
+  <b>Name</b>: <%= link_to @user.employee.proper_name, employee_path(user.employee) %>
+</h3><br>
+
+<p>
+  <b>Email</b>: <%= mail_to @user.email, @user.email %>
+</p>
+
+<p>
+  <b>Role</b>: <%= @user.employee.role.capitalize %>
+</p>
+
+<p>
+  <b>Active</b>: <%= @user.employee.active ? "Yes" : "No" %>
+</p>
