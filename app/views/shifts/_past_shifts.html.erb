@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+			<th>Employee</th>
+			<th>Store</th>
+      <th>Date</th>
+      <th>Start Time</th>
+      <th>Job</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @past_shifts.each do |shift| %>
+      <tr>
+				<td><%= link_to shift.assignment.employee.name, employee_path(shift.assignment.employee) %></td>
+				<td><%= link_to shift.assignment.store.name, store_path(shift.assignment.store) %></td>
+        <td><%= shift.date.strftime("%m/%d/%y") %></td>
+        <td><%= shift.start_time %></td>
+        <td><%= link_to shift.shift_job.job.name, job_path(shift.shift_job.job) %></td>
+        <td>
+					<%= link_to raw("Details"), shift_path(shift), :class => 'btn btn-mini' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @past_shifts, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>

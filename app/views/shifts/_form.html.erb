@@ -1,0 +1,21 @@
+<%= simple_form_for @shift, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Shift</legend>
+
+		<%= f.input :assignment_id, :collection => Assignment.store.alphabetical, :include_blank => true %>
+		<%= f.input :date, :label => "Date", :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 1, :order => [:month, :day, :year] %>
+		<%# Only show the end_date on 'edit', not 'new' %>
+		<%= f.input :start_time, :label => "Start Time", :as => :time %>
+		<% if controller.action_name == "edit" %>
+			<%= f.input :end_time, :label => "End Time", :as => :time %>
+		<% end %>
+		
+		<%= f.text :notes, :include_blank => true %>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', shifts_path, :class => 'btn' %>
+    </div>
+  </fieldset>
+<% end %>

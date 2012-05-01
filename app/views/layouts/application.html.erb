@@ -10,10 +10,10 @@
 </head>
 <body>
 	<!-- TITLE BAR -->
-	<%= link_to(image_tag('amc_titlebar_1.png'), home_path) %>
+	<%= link_to(image_tag('logo_2.png'), home_path) %>
 	<!-- NAV BAR -->
-	<div class="navbar">
-	  <div class="navbar-inner">
+	<div class="topbar">
+	  <div class="topbar-inner">
 	    <div class="container">
 	      <%= render :partial => 'partials/navigation' %>
 	    </div>
@@ -38,7 +38,7 @@
 	</div>
 	
 	<!-- FOOTER -->
-	<footer id="footer">
+	<footer class="footer">
     <div class="container">
 			<%= render :partial => "partials/footer" %>
     </div>
