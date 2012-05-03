@@ -14,6 +14,7 @@ class Shift < ActiveRecord::Base
   validate :assignment_must_be_current
   validates_numericality_of :assignment_id, :only_integer => true, :greater_than => 0
   
+  accepts_nested_attributes_for :shift_jobs, :reject_if => lambda {|shift_job| shift_job[:job_id].blank? }
   
   # Scopes
   scope :completed, joins(:shift_jobs).group(:shift_id)

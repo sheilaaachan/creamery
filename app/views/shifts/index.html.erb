@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="span6">
-		<h2>Current Assignments</h2>
-		<%= render :partial => "current_assignments" unless @assignments.empty? %>
+		<h2>Upcoming Shifts</h2>
+		<%= render :partial => "upcoming_shifts" unless @shifts.empty? %>
 	</div>
 	<div class="span6">
-		<h2>Past Assignments</h2>
-		<%= render :partial => "past_assignments" unless @past_assignments.empty? %>
+		<h2>Past Shifts</h2>
+		<%= render :partial => "past_shifts" unless @past_shifts.empty? %>
 		
 	</div>
 </div>
 
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Assignment"), new_assignment_path, :class => 'btn btn-primary' %>
+<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Shift"), new_shift_path, :class => 'btn btn-primary' %>

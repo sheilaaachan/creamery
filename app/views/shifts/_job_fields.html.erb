@@ -1,0 +1,11 @@
+<fieldset>
+  <legend><%= controller.action_name.capitalize %> Job</legend>
+
+	<%= f.check_box :job, :label => :job, :include_blank => true %>
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to 'Cancel', shifts_path, :class => 'btn' %>
+  </div>
+</fieldset>

@@ -1,0 +1,16 @@
+<fieldset>
+    <legend><%= controller.action_name.capitalize %> Shift</legend>
+
+		<%= f.input :assignment_id, :collection => Assignment.all, :include_blank => true %>
+		<%= f.input :date, :label => "Date", :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 1, :order => [:month, :day, :year] %>
+		<%= f.input :start_time, :label => "Start Time", :as => :time, :minute_step => 15, :ampm => true %>
+		<%= f.input :end_time, :label => "End Time", :as => :time, :minute_step => 15, :ampm => true %>
+		
+		<%= f.input :notes, :include_blank => true %>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to 'Cancel', shifts_path, :class => 'btn' %>
+    </div>
+  </fieldset>

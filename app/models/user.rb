@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_secure_password
   
   # Specify fields that can be accessible through mass assignment (not password_digest)
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :employee_id, :email, :password, :password_confirmation
 
   # Relationship
   belongs_to :employee
