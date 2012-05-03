@@ -1,8 +1,10 @@
 <fieldset>
   <legend><%= controller.action_name.capitalize %> Job</legend>
 
-	<%= f.check_box :job, :label => :job, :include_blank => true %>
-
+	<% for job in Job.active.alphabetical %>
+		<%= check_box_tag "Shift[jobs_id][]", job.id, @shift.jobs.include?(job) %>
+		<%= job.name %>
+	<% end %>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

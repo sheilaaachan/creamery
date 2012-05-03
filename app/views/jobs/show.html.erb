@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="span8">
+		<h3>Job Details</h3>
+			<br />
+			<p><h4>Name: <%= @job.name %></h4></p>
+			<p><b>Description</b>: <%= @job.description %></p>
+			<p><b>Active:</b> <%= @job.active ? "Yes" : "No" %></p>
+				</div>
+				<div class="span4">
+
+				</div>
+			</div>
+
+<div class="form-actions">
+  <%= link_to raw("<i class='icon-th-list'></i> Display All Jobs"), jobs_path, :class => 'btn'  %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-pencil'></i> Edit Job"), edit_job_path(@job), :class => 'btn' %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-trash icon-white'></i> Delete Job"), job_path(@job), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</div>
+

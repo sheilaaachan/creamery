@@ -1,36 +1,36 @@
-<%= simple_nested_form_for @shift, :html => { :class => 'form-horizontal' } do |shift_form| %>
-<div class="row">
-  <div class="span6">
-    <fieldset>
-      <legend><%= controller.action_name.capitalize %> Shift</legend>
+# <%= simple_nested_form_for @shift, :html => { :class => 'form-horizontal' } do |shift_form| %>
+# <div class="row">
+#   <div class="span6">
+#     <fieldset>
+#       <legend><%= controller.action_name.capitalize %> Shift</legend>
         
-        <!-- Add partial for shift form details here -->
-        <%= render :partial => 'shift_fields', :locals => { :f => shift_form } %>
+#         <!-- Partial for shift form details -->
+#         <%= render :partial => 'shift_fields', :locals => { :f => shift_form } %>
         
-    </fieldset>
-  </div>
-  <div class="span6">
-    <legend>Add some jobs for this shift</legend>
-    <div id="shift_jobs">
+#     </fieldset>
+#   </div>
+#   <div class="span6">
+#     <legend>Add some jobs for this shift</legend>
+#     <div id="shift_jobs">
       
-      <%= shift_form.simple_fields_for :jobs do |job_form| %>
+#       <%= shift_form.simple_fields_for :jobs do |job_form| %>
         
-        <!-- Add partial for jobs form here -->
-        <%= render :partial => 'job_fields', :locals => { :f => job_form } %>
+#         <!-- Partial for jobs form -->
+#         <%= render :partial => 'job_fields', :locals => { :f => job_form } %>
         
-      <% end %> 
-      <p>
-        <br />
-        <!-- if you are using bootstrap, choose the first option... -->
-        <%# shift_form.link_to_add(raw("<i class='icon-plus icon-white'></i> Add Job"), :jobs, :class => 'btn btn-mini btn-primary') %>
-        <%= shift_form.link_to_add("Add Job", :jobs) %>
-      </p>
+#       <% end %> 
+#       <p>
+#         <br />
+#         <!-- if you are using bootstrap, choose the first option... -->
+#         <%# shift_form.link_to_add(raw("<i class='icon-plus icon-white'></i> Add Job"), :jobs, :class => 'btn btn-mini btn-primary') %>
+#         <%= shift_form.link_to_add("Add Job", :jobs) %>
+#       </p>
       
-    </div> 
-  </div>
-</div>
-<div class="form-actions">
-  <%= shift_form.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to 'Cancel', shifts_path, :class => 'btn' %>
-</div>
-<% end %>
+#     </div> 
+#   </div>
+# </div>
+# <div class="form-actions">
+#   <%= shift_form.submit nil, :class => 'btn btn-primary' %>
+#   <%= link_to 'Cancel', shifts_path, :class => 'btn' %>
+# </div>
+# <% end %>
