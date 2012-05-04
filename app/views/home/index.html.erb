@@ -1,5 +1,11 @@
-<%# if logged_in? %>
-	<%#= render :partial => 'personal_home' %>
-<%# else %>
+<% if logged_in? %>
+	<% if current_user.employee.role == "admin" %>
+		<%= render :partial => 'admin_home' %>
+	<% elsif current_user.employee.role == "manager" %>
+		<%= render :partial => 'manager_home' %>
+	<% elsif current_user.employee.role == "employee" %>
+		<%= render :partial => 'employee_home' %>
+	<% end %>
+<% else %>
 	<%= render :partial => 'default_home' %>
-<%# end %>
+<% end %>

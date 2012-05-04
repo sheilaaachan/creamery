@@ -21,10 +21,10 @@ class User < ActiveRecord::Base
   # for use in authorizing with CanCan
   ROLES = [['Employee', :employee],['Manager', :manager],['Administrator', :admin]]
 
-  def role?(authorized_role)
-    return false if role.nil?
-    role.downcase.to_sym == authorized_role
-  end
+  # def role?(authorized_role)
+  #   return false if self.employee.role.nil?
+  #   role.downcase.to_sym == authorized_role
+  # end
 
   # login by email address
   def self.authenticate(email, password)

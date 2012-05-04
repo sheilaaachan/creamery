@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
 
-	# before_filter :check_login
-	# authorize_resource
+	before_filter :check_login
+	authorize_resource
 
   def index
     @jobs = Job.active.alphabetical.paginate(:page => params[:page]).per_page(15)

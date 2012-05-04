@@ -1,7 +1,7 @@
 class StoresController < ApplicationController
 
-  # before_filter :check_login, :except => :index, :except => :show
-  # authorize_resource
+  before_filter :check_login, :except => :index, :except => :show
+  authorize_resource
 
   def index
     @stores = Store.active.alphabetical.paginate(:page => params[:page]).per_page(10)

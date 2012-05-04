@@ -2,7 +2,7 @@
   <fieldset>
     <legend><%= controller.action_name.capitalize %> Assignment</legend>
 
-		<%= f.input :store_id, :collection => Store.active.alphabetical, :include_blank => true %>
+		<%= f.input :store_id, :collection => Store.active.alphabetical %> <%#, :include_blank => true %>
 		<%= f.input :employee_id, :collection => Employee.active.alphabetical, :include_blank => true %>
 		<%= f.input :start_date, :label => "Start Date", :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 1, :order => [:month, :day, :year] %>
 		<%# Only show the end_date on 'edit', not 'new' %>

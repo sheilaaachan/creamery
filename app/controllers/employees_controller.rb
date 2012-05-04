@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
 
-  # before_filter :check_login
-  # authorize_resource
+  before_filter :check_login
+  authorize_resource
 
   def index
     @employees = Employee.active.alphabetical.paginate(:page => params[:page]).per_page(10)

@@ -1,7 +1,7 @@
 class AssignmentsController < ApplicationController
 
-  # before_filter :check_login
-  # authorize_resource
+  before_filter :check_login
+  authorize_resource
 
   def index
     @assignments = Assignment.current.by_store.by_employee.chronological.paginate(:page => params[:page]).per_page(15)
