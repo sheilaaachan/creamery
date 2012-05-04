@@ -19,3 +19,8 @@
   <b>Active:</b> 
   <%= @store.active ? "Yes" : "No" %>
 </p>
+
+<p>
+  <b>Store Map</b>
+  <%= image_tag @store.create_map_link %>
+</p>

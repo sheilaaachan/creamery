@@ -2,6 +2,8 @@ class Employee < ActiveRecord::Base
   # Callbacks
   before_save :reformat_phone
   before_validation :reformat_ssn
+
+  attr_accessible :role
   
   # Relationships
   has_many :assignments

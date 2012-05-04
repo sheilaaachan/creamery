@@ -15,7 +15,8 @@ class Shift < ActiveRecord::Base
   validates_numericality_of :assignment_id, :only_integer => true, :greater_than => 0
   
   accepts_nested_attributes_for :shift_jobs, :reject_if => lambda {|shift_job| shift_job[:job_id].blank? }
-  
+  accepts_nested_attributes_for :jobs, :reject_if => lambda {|job| job[:name].blank? }
+
   # Scopes
   scope :completed, joins(:shift_jobs).group(:shift_id)
   scope :incomplete, joins("LEFT JOIN shift_jobs ON shifts.id = shift_jobs.shift_id").where('shift_jobs.job_id IS NULL')

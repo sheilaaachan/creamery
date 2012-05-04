@@ -37,7 +37,7 @@ class ShiftsController < ApplicationController
     @shift = Shift.new(params[:shift])
     if @shift.save
       # if saved to database
-      flash[:notice] = "#Successfully created a new shift at {@shift.start_time} on {@shift.date} for {@shift.assignment.employee.proper_name}'s current assignment."
+      flash[:notice] = "#Successfully created a new shift at #{@shift.start_time.strftime("%l:%M %p")} on #{@shift.date.strftime("%m/%d/%y")} for #{@shift.assignment.employee.proper_name}'s current assignment."
       redirect_to @shift # go to show shift page
     else
       # return to the 'new' form
@@ -48,7 +48,7 @@ class ShiftsController < ApplicationController
   def update
     @shift = Shift.find(params[:id])
     if @shift.update_attributes(params[:shift])
-      flash[:notice] = "#Successfully updated the {@shift.start_time} shift on {@shift.date} from {@shift.assignment.employee.proper_name}'s current assignment."
+      flash[:notice] = "#Successfully updated the #{@shift.start_time.strftime("%l:%M %p")} shift on #{@shift.date.strftime("%m/%d/%y")} from #{@shift.assignment.employee.proper_name}'s current assignment."
       redirect_to @shift
     else
       render :action => 'edit'
@@ -58,7 +58,7 @@ class ShiftsController < ApplicationController
   def destroy
     @shift = Shift.find(params[:id])
     @shift.destroy
-    flash[:notice] = "#Successfully removed the {@shift.start_time} shift on {@shift.date} from {@shift.assignment.employee.proper_name}'s current assignment."
+    flash[:notice] = "#Successfully removed the #{@shift.start_time.strftime("%l:%M %p")} shift on #{@shift.date.strftime("%m/%d/%y")} from #{@shift.assignment.employee.proper_name}'s current assignment."
     redirect_to shifts_url
   end
 end

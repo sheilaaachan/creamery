@@ -1,1 +1,52 @@
-<%= render :partial => 'edit_form' %>
+<%= simple_nested_form_for @shift, :html => { :class => 'form-horizontal' } do |shift_form| %>
+<div class="row">
+
+  <div class="span6">
+    <fieldset>
+      <legend><%= controller.action_name.capitalize %> Shift</legend>
+        <!-- Partial for shift form details -->
+						<%= shift_form.input :assignment_id, :collection => get_assignment_options, :include_blank => true %>
+						<%= shift_form.input :date, :label => "Date", :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 1, :order => [:month, :day, :year] %>
+						<%= shift_form.input :start_time, :label => "Start Time", :as => :time, :minute_step => 15, :ampm => true %>
+						<%= shift_form.input :end_time, :label => "End Time", :as => :time, :minute_step => 15, :ampm => true %>					
+						<%= shift_form.input :notes, :include_blank => true %>    
+    </fieldset>
+  </div>
+
+  <div class="span6">
+  	<fieldset>
+	    <legend>Add some jobs for this shift</legend>
+	  	</br>
+	    	<% for job in Job.active.alphabetical %>
+					<%= check_box_tag "shift[job_ids][]", job.id, @shift.jobs.include?(job) %>
+					<%= job.name %>
+				<% end %>
+   		  <%= shift_form.simple_fields_for :jobs do |job_form| %>
+				</br>
+				<%= job_form.link_to_remove(raw("<i class='icon-remove'></i>")) %>
+				<%= job_form.input :name, :include_blank => true %>
+				<%= job_form.input :description, :include_blank => true %>
+				<%= job_form.input :active %>
+
+			  <div class="form-actions">
+			    <%= job_form.submit nil, :class => 'btn btn-primary' %>
+			    <%= link_to 'Cancel', shifts_path, :class => 'btn' %>
+			  </div>
+				<% end %>
+	      <p>
+	        <br />
+	        <!-- if you are using bootstrap, choose the first option... -->
+	        <%= shift_form.link_to_add(raw("<i class='icon-plus icon-white'></i> Create New Job"), :jobs, :class => 'btn btn-mini btn-primary') %>
+	        <%#= shift_form.link_to_add("Add Job", :jobs) %>
+	      </p>   
+    </fieldset>
+  </div>
+
+</div>
+
+<div class="form-actions">
+  <%= shift_form.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to 'Cancel', shifts_path, :class => 'btn' %>
+</div>
+
+<% end %>

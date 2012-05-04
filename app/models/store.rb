@@ -1,5 +1,7 @@
 class Store < ActiveRecord::Base
   # Callbacks
+  before_save :find_store_coordinates
+  # before_save :create_map_link
   before_save :reformat_phone
   
   # Relationships
@@ -29,10 +31,37 @@ class Store < ActiveRecord::Base
   # Misc Constants
   STATES_LIST = [['Ohio', 'OH'],['Pennsylvania', 'PA'],['West Virginia', 'WV']]
   
+  def self.create_map_link_all(zoom=11, width=500, height=500)
+    markers = ""; i = 1
+    Store.active.all.each do |store|
+      markers += "&markers=color:red%7Ccolor:red%7Clabel:#{i}%7C#{store.lat},#{store.lon}"
+      i += 1
+    end
+    lat = 40.44
+    lon = -79.9961
+    map = "http://maps.google.com/maps/api/staticmap?center=
+      #{lat},#{lon}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"
+  end
+
+  def create_map_link(zoom=13, width=500, height=500)
+      markers = ""; i = 1
+      markers += "&markers=color:red%7Ccolor:red%7Clabel:#{i}%7C#{self.lat},#{self.lon}"
+      map = "http://maps.google.com/maps/api/staticmap?center=
+      #{self.lat},#{self.lon}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"
+  end
   
   # Callback code
   # -----------------------------
-  private
+  private  
+  def find_store_coordinates
+    coord = Geokit::Geocoders::GoogleGeocoder.geocode "#{self.street}, #{self.zip}, #{self.state}"
+    if coord.success  
+      self.lat, self.lon = coord.ll.split(',')
+    else
+      errors.add_to_base("Error with geocoding")
+    end
+  end
+
   # We need to strip non-digits before saving to db
   def reformat_phone
     phone = self.phone.to_s  # change to string in case input as all numbers 

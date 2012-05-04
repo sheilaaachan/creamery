@@ -4,7 +4,7 @@
 
   	<%= f.input :assignment_id, :collection => get_assignment_options, :include_blank => true %>
 		<%= f.input :date, :label => "Date", :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 1, :order => [:month, :day, :year] %>
-		<%= f.input :start_time, :label => "Start Time", :as => :time, :minute_step => 15, :ampm => true %>
+		<%= f.input :start_time, :label => "Start Time", :as => :time, :minute_step => 15, :ampm => true, :hint => "**Round up to the next 15 minute increment" %>
 		
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary' %>
