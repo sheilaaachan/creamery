@@ -11,7 +11,7 @@ class AssignmentsController < ApplicationController
   def show
     @assignment = Assignment.find(params[:id])
     # get the shift history for this assignment (later; empty now)
-    @shifts = Array.new
+    @shifts = @assignment.shifts.all
   end
 
   def new

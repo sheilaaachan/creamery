@@ -28,6 +28,9 @@ class Employee < ActiveRecord::Base
   scope :managers, where('role = ?', 'manager')
   scope :admins, where('role = ?', 'admin')
   scope :alphabetical, order('last_name, first_name')
+
+  scope :search, lambda { |term| where('first_name LIKE ? OR last_name LIKE ?', "#{term}%", "#{term}%") }
+
   
   # Other methods
   def name
@@ -52,6 +55,21 @@ class Employee < ActiveRecord::Base
   
   def age
     (Time.now.to_s(:number).to_i - date_of_birth.to_time.to_s(:number).to_i)/10e9.to_i
+  end
+
+  # hours that an employee has worked in the past 2 weeks
+  def employee_hours
+    hours = 0
+    unless self.assignments.nil? || self.current_assignment.shifts.nil?
+      self.current_assignment.shifts.each do |shift|
+        if [(Date.current - shift.date) <= 14]
+          hours += (shift.end_time - shift.start_time)
+        end
+      end
+    end
+    (hours *= (-1)) if (hours < 0)
+    hours /= 3600
+    return hours.to_i
   end
   
   # Misc Constants

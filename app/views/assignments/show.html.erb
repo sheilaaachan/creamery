@@ -1,11 +1,11 @@
 <div class="row">
-	<div class="span8">
+	<div class="span6">
 		<h3>Assignment Details</h3>
 		<%= render :partial => "assignment_details" %>
 	</div>
-	<div class="span4">
+	<div class="span6">
 		<h3>Shifts Worked</h3>
-		<%= render :partial => "shift_history" unless @shifts.empty? %>
+		<%= render :partial => "shift_history" unless @assignment.shifts.empty? %>
 	</div>
 </div>
 

@@ -21,11 +21,14 @@ class Store < ActiveRecord::Base
   validates_format_of :phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and delimited with dashes only"
   # make sure stores have unique names
   validates_uniqueness_of :name
+
   
   # Scopes
   scope :alphabetical, order('name')
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
+  scope :search, lambda { |term| where('name LIKE ?', "#{term}%") }
+
   
   
   # Misc Constants

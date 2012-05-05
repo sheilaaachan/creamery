@@ -1,9 +1,9 @@
 <div class="row">
-	<div class="span8">
+	<div class="span6">
 		<h3>Employee Details:</h3>
 		<%= render :partial => "employee_details" %>
 	</div>
-	<div class="span4">
+	<div class="span6">
 		<h3>Assignment History:</h3>
 		<%= render :partial => "assignment_history" unless @assignments.empty? %>
 		<%= link_to(raw("<i class='icon-plus icon-white'></i> New Assignment"), new_assignment_path(:id => @employee.id, :from => 'employee'), :class => 'btn btn-primary') %>

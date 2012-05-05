@@ -4,6 +4,7 @@
       <th>Store</th>
 			<th>Dates</th>
 			<th class="centered">Pay</th>
+      <th>&nbsp</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,9 @@
 					<% end %>
 				</td>
 				<td class="centered"><%= assignment.pay_level %></td>
+        <td>
+          <%= link_to raw("<i class='icon-file'></i> Details"), assignment_path(assignment), :class => 'btn btn-mini' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
