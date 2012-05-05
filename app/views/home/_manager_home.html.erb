@@ -1,3 +1,60 @@
 <h2>Welcome back, <%= current_user.employee.proper_name %></h2>
+<h3>Store: <%= @current_store.name %></h3>
+<br><br><br><br>
+<div class="row">
+	<div class="span5">
+		<h3>Current Employees</h3>
+			<table class="table table-striped">
+				<thead>
+			    <tr>
+			      <th>Name</th>
+						<th class="centered"># Shift Hours</th>
+						<th>Last Shift</th>
+			      <th>&nbsp;</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% @current_store.assignments.current.employees.alphabetical.active.each do |employee| %>
+			    	<% if @current_store.name == employee.current_assignment.store.name %>
+				      <tr>
+				        <td><%= link_to employee.name, employee_path(employee) %></td>
+								<td class="centered"><%= employee.employee_hours %></td>
+								<td><%= @last_shift.first.date %></td>
+				        <td>
+									<%= link_to raw("<i class='icon-file'></i>Add Shift"), shift_path(:new), :class => 'btn btn-mini' %>
+				        </td>
+				      </tr>
+				    <% end %>
+			    <% end %>
+			  </tbody>
+			</table>
+	</div>
 
-<p> Manager : I need to add dashboard requirements here:</p>
+	<div class="span4">
+		<h3>Today's Scheduled Shifts</h3>
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th>Employee</th>
+						<th>Start Time</th>
+			      <th>&nbsp;</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% @todays_shifts.each do |shift| %>
+			      <tr>
+			        <td><%= link_to shift.assignment.employee.name, employee_path(shift.assignment.employee) %></td>
+			        <td><%= shift.start_time %></td>
+							<td>
+								<%= link_to raw("<i class='icon-file'></i>Edit Shift"), shift_path(:edit), :class => 'btn btn-mini' %>
+			        </td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			</table>
+	</div>
+
+	<div class="span3">
+		<h3>Unrecorded Shifts</h3>
+			
+	</div>

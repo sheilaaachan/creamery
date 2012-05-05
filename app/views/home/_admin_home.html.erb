@@ -17,12 +17,7 @@
 			      <tr>
 			        <td><%= link_to store.name, store_path(store) %></td>
 							<td class="centered"><%= store.employees.size %></td>
-							<td class="centered"><%= "total hours" %></td>
-							<!-- <td><%# hours = 0 %>
-								<%# store.employees.each do |employee| %>
-								<%# hours += employee.employee_hours %>
-								<%# end %>
-								<%#= hours %></td> -->
+							<td class="centered"><%= "bla" %></td>
 			        <td>
 								<%= link_to raw("<i class='icon-file'></i> Assign a employee"), assignment_path(:new), :class => 'btn btn-mini' %>
 			        </td>
@@ -43,6 +38,7 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+			    <%# @active_employees.star_employees.each do |employee| %>
 			    <% @active_employees.each do |employee| %>
 			      <tr>
 			        <td><%= link_to employee.name, employee_path(employee) %></td>

@@ -71,6 +71,23 @@ class Employee < ActiveRecord::Base
     hours /= 3600
     return hours.to_i
   end
+
+  # a hash of key: employee_id, value: hours_worked
+  def employee_hours_hash
+    hash = Hash.new()
+    self.each do |employee|
+      hash[employee] = employee.employee_hours
+    end
+    return hash
+  end
+
+  def star_employees
+    hash = self.employee_hours_hash
+    hash.sort_by { |k,v| v }
+    return hash.keys
+  end
+
+
   
   # Misc Constants
   ROLES_LIST = [['Employee', 'employee'],['Manager', 'manager'],['Administrator', 'admin']]
