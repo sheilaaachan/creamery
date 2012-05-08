@@ -14,15 +14,15 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <% @current_store.assignments.current.employees.alphabetical.active.each do |employee| %>
-			    	<% unless employee.current_assignment.nil? %>
-				    	<% if @current_store.name == employee.current_assignment.store.name %>
+			    <% @current_store.assignments.current.each do |assign| %>
+			    	<% unless current_user.employee.current_assignment.nil? %>
+				    	<% if assign.store.name == current_user.employee.current_assignment.store.name %>
 					      <tr>
-					        <td><%= link_to employee.name, employee_path(employee) %></td>
-									<td class="centered"><%= employee.employee_hours %></td>
-									<td><%= @last_shift.first.date %></td>
+					        <td><%= link_to assign.employee.name, employee_path(assign.employee) %></td>
+									<td class="centered"><%= assign.employee.employee_hours %></td>
+									<td><%= assign.shifts.completed.chronological.reverse[0].date unless assign.shifts.completed.chronological.reverse[0].nil? %></td>
 					        <td>
-										<%= link_to raw("<i class='icon-file'></i>Add Shift"), shift_path(:new), :class => 'btn btn-mini' %>
+										<%= link_to raw("<i class='icon-file'></i> Add Shift"), new_shift_path(assign.shifts.completed.chronological.reverse.first), :class => 'btn btn-mini' %>
 					        </td>
 					      </tr>
 					    <% end %>
@@ -32,7 +32,7 @@
 			</table>
 	</div>
 
-	<div class="span4">
+	<div class="span3">
 		<h3>Today's Scheduled Shifts</h3>
 			<table class="table table-striped">
 			  <thead>
@@ -46,9 +46,9 @@
 			    <% @todays_shifts.each do |shift| %>
 			      <tr>
 			        <td><%= link_to shift.assignment.employee.name, employee_path(shift.assignment.employee) %></td>
-			        <td><%= shift.start_time %></td>
+			        <td><%= shift.start_time.strftime("%l:%M %p") %></td>
 							<td>
-								<%= link_to raw("<i class='icon-file'></i>Edit Shift"), shift_path(:edit), :class => 'btn btn-mini' %>
+								<%= link_to raw("<i class='icon-file'></i> Edit"), edit_shift_path(shift), :class => 'btn btn-mini' %>
 			        </td>
 			      </tr>
 			    <% end %>
@@ -56,12 +56,13 @@
 			</table>
 	</div>
 
-	<div class="span3">
+	<div class="span4">
 		<h3>Unrecorded Shifts</h3>
 			<table class="table table-striped">
 			  <thead>
 			    <tr>
 			      <th>Employee</th>
+			      <th>Date</th>
 						<th>Start Time</th>
 			      <th>&nbsp;</th>
 			    </tr>
@@ -70,9 +71,10 @@
 			    <% @incomplete_shifts.each do |shift| %>
 			      <tr>
 			        <td><%= link_to shift.assignment.employee.name, employee_path(shift.assignment.employee) %></td>
-			        <td><%= shift.start_time %></td>
+			        <td><%= shift.date.strftime("%m/%d/%y") %></td>
+			        <td><%= shift.start_time.strftime("%l:%M %p") %></td>
 							<td>
-								<%= link_to raw("<i class='icon-file'></i>Edit Shift"), shift_path(:edit), :class => 'btn btn-mini' %>
+								<%= link_to raw("<i class='icon-file'></i> Edit"), edit_shift_path(shift), :class => 'btn btn-mini' %>
 			        </td>
 			      </tr>
 			    <% end %>

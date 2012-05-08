@@ -7,7 +7,7 @@ class HomeController < ApplicationController
       @active_employees = Employee.active.alphabetical.paginate(:page => params[:page]).per_page(10)
       @star_employees = Employee.star_employees
 
-      @last_shift = Shift.completed.chronological.reverse
+      #@last_shift = Employee.shifts.completed.chronological.reverse
       @todays_shifts = Shift.for_next_days(1).chronological.reverse
       @incomplete_shifts = Shift.incomplete.chronological.reverse
 
