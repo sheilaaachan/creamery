@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
-    #
+    # 
       user ||= User.new # guest user (not logged in)
       if (user.employee.role == "admin")
         # admin has unlimited access in the system. 
@@ -34,11 +34,32 @@ class Ability
           shifts = user.employee.store.shifts.map{|p| p.id}
           shifts.include? shift.id 
         end
+        # can view their own employee details
+        can :show, Employee do |e|
+          e.id == employee.id
+        end     
+        # can view details for their own shifts
+        can :show, Shift do |shift|
+          my_shifts = user.shifts.map{|s| s.id}
+          my_shifts.include? shift.id 
+        end
+        # can view the generic home page
+        # can view the details page for a particular store
+        can :read, Store
+        can :manage, Job
       elsif (user.employee.role == "employee")
         # can view their own employee details
-        can :show, Employee      
+        can :show, Employee do |e|
+          e.id == employee.id
+        end     
         # can view details for their own shifts
-        can :show, Shift
+        can :show, Shift do |shift|
+          my_shifts = user.shifts.map{|s| s.id}
+          my_shifts.include? shift.id 
+        end
+        # can view the generic home page
+        # can view the details page for a particular store
+        can :read, Store
       else
         # can view the generic home page
         # can view the details page for a particular store

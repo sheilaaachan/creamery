@@ -1,0 +1,25 @@
+<p>
+	<h4>
+	  Name: <%= current_user.employee.proper_name %>
+	</h4>
+</p>
+
+<p>
+  <b>SSN:</b> <%= current_user.employee.ssn %>
+</p>
+
+<p>
+  <b>Date of Birth:</b> <%= current_user.employee.date_of_birth.strftime("%m/%d/%y") %>
+</p>
+
+<p>
+  <b>Phone:</b> <%= number_to_phone current_user.employee.phone unless current_user.employee.phone.nil? %>
+</p>
+
+<p>
+  <b>Role:</b> <%= current_user.employee.role.capitalize %>
+</p>
+
+<p>
+  <b>Active:</b> <%= current_user.employee.active ? "Yes" : "No" %>
+</p>

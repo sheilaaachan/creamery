@@ -1,11 +1,11 @@
 class StoresController < ApplicationController
 
   before_filter :check_login, :except => :index, :except => :show
-  authorize_resource
 
   def index
     @stores = Store.active.alphabetical.paginate(:page => params[:page]).per_page(10)
     @inactive_stores = Store.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
+    authorize! :index, @user
   end
 
   def show
@@ -16,10 +16,12 @@ class StoresController < ApplicationController
 
   def new
     @store = Store.new
+    authorize! :new, @user
   end
 
   def edit
     @store = Store.find(params[:id])
+    authorize! :edit, @user
   end
 
   def create
@@ -32,6 +34,7 @@ class StoresController < ApplicationController
       # return to the 'new' form
       render :action => 'new'
     end
+    authorize! :create, @user
   end
 
   def update
@@ -42,6 +45,7 @@ class StoresController < ApplicationController
     else
       render :action => 'edit'
     end
+    authorize! :update, @user
   end
 
   def destroy
@@ -49,5 +53,6 @@ class StoresController < ApplicationController
     @store.destroy
     flash[:notice] = "Successfully removed #{@store.name} from the AMC system."
     redirect_to stores_url
+    authorize! :destroy, @user
   end
 end

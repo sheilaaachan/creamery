@@ -22,9 +22,9 @@ class ShiftsController < ApplicationController
     else
       @shift = Shift.new
       if params[:from] == "store" 
-        @shift.store_id = params[:id]
+        @shift.assignment.store_id = params[:id]
       else
-        @shift.employee_id = params[:id]
+        @shift.assignment.employee_id = params[:id]
       end
     end
   end

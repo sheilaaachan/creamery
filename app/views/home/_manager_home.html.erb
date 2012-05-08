@@ -22,7 +22,7 @@
 									<td class="centered"><%= assign.employee.employee_hours %></td>
 									<td><%= assign.shifts.completed.chronological.reverse[0].date unless assign.shifts.completed.chronological.reverse[0].nil? %></td>
 					        <td>
-										<%= link_to raw("<i class='icon-file'></i> Add Shift"), new_shift_path(assign.shifts.completed.chronological.reverse.first), :class => 'btn btn-mini' %>
+										<%= link_to raw("<i class='icon-file'></i> Add Shift"), new_shift_path(:id => assign.id, :from => 'assignment' ), :class => 'btn btn-mini' %>
 					        </td>
 					      </tr>
 					    <% end %>
@@ -30,6 +30,7 @@
 			    <% end %>
 			  </tbody>
 			</table>
+		
 	</div>
 
 	<div class="span3">
@@ -80,5 +81,6 @@
 			    <% end %>
 			  </tbody>
 			</table>
+			<%= will_paginate @incomplete_shifts, :previous_label => "<&nbsp;", :next_label => "&nbsp;>" %>
 	</div>
 </div>

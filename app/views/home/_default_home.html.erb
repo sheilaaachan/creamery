@@ -2,11 +2,36 @@
 
 <div class="container-fluid">
 	<div class="row-fluid">
-    	<div class="span5">
-    		A&M Creamery doesnt actually exist. haha. but here is the website that I created for it!
-    	</div>
-    	<div class="span7">
-    	<%= image_tag 'warhol2.jpg', :class => "left" %>
-    	</div>
-    </div>
+  	<div class="span4">
+  	A&M Creamery doesnt actually exist. haha. but here is the website that I created for it!
+  	</div>
+
+  	<div class="span2">
+  	<%= image_tag 'warhol2.jpg', :class => "left" %>
+  	</div>
+
+  	<div class="span6">
+  		<h3>Store Locations</h3>
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th>Store Name</th>
+						<th>Address</th>
+						<th>Phone</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% unless @active_stores2.nil? %>
+			    <% @active_stores2.each do |store| %>
+			      <tr>
+			        <td><%= link_to store.name, store_path(store) %></td>
+							<td><%= store.street+"  "+store.city+", "+store.state %></td>
+			        <td><%= number_to_phone store.phone %></td>
+			      </tr>
+			      <% end %>
+			    <% end %>
+			  </tbody>
+			</table>
+  	</div>
+  </div>
 </div>

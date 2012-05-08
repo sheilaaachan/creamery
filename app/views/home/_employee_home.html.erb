@@ -1,3 +1,56 @@
 <h2>Welcome back, <%= current_user.employee.proper_name %></h2>
+<br><br><br><br>
+<div class="row">
+	<div class="span4">
+		<h3>Profile</h3>
+			<table class="table table-striped">
+			  <%= render :partial => "employee_details" %>
+			</table>
+	</div>
 
-<p> Employee : I need to add dashboard requirements here:</p>
+	<div class="span4">
+		<h3>Previous Shifts</h3>
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th>Store Name</th>
+						<th>Date</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% @past_shifts.each do |shift| %>
+			      <tr>
+			        <td><%= shift.assignment.store.name %></td>
+							<td><%= shift.date.strftime("%m/%d/%y") %></td>
+			        <td><%= shift.start_time.strftime("%l:%M %p") %></td>
+			        <td><%= shift.end_time.strftime("%l:%M %p") %></td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			</table>
+	</div>
+
+	<div class="span4">
+		<h3>Upcoming Shifts</h3>
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th>Store Name</th>
+						<th>Date</th>
+						<th>Start Time</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% @upcoming_shifts.each do |shift| %>
+			      <tr>
+			        <td><%= shift.assignment.store.name %></td>
+							<td><%= shift.date.strftime("%m/%d/%y") %></td>
+			        <td><%= shift.start_time.strftime("%l:%M %p") %></td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			</table>
+	</div>
+</div>
