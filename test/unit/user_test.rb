@@ -27,11 +27,12 @@ class UserTest < ActiveSupport::TestCase
     end
 
     # and provide a teardown method as well
-    # teardown do
-    #   @ed.destroy
-    #   @ralph.destroy
-    #   @kathryn.destroy
-    # end
+    teardown do
+      @ed.destroy
+      @ed_user.destroy
+      @ralph.destroy
+      @kathryn.destroy
+    end
 
     should "allow active employees to be users" do
       active_employee = FactoryGirl.build(:user, :employee => @kathryn, :email => "kathryn@example.com", :password => "creamery", :password_confirmation => "creamery")
@@ -49,7 +50,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     should "authenticate email address" do
-      assert_equal false, @ed_user.authenticate('ed@example.com, secret')
+      assert_equal false, User.authenticate('ed@example.com', 'secret')
     end
   end
 end
