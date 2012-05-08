@@ -45,6 +45,11 @@ class StoreTest < ActiveSupport::TestCase
       @cmu = FactoryGirl.create(:store)
       @hazelwood = FactoryGirl.create(:store, :name => "Hazelwood", :active => false)
       @oakland = FactoryGirl.create(:store, :name => "Oakland", :phone => "412-268-8211")
+      @cindy = FactoryGirl.create(:employee, :first_name => "Cindy", :last_name => "Crawford", :ssn => "084-35-9822", :date_of_birth => 17.years.ago.to_date)
+      @assign_cindy = FactoryGirl.create(:assignment, :employee => @cindy, :store => @cmu, :end_date => nil)
+      @job = FactoryGirl.create(:job)
+      @shift_cindy = FactoryGirl.create(:shift, :assignment => @assign_cindy, :date => 2.days.ago)
+      @shift_job = FactoryGirl.create(:shift_job, :job => @job, :shift => @shift_cindy) 
     end
     
     # and provide a teardown method as well
@@ -52,6 +57,11 @@ class StoreTest < ActiveSupport::TestCase
       @cmu.destroy
       @hazelwood.destroy
       @oakland.destroy
+      @cindy.destroy
+      @assign_cindy.destroy
+      @job.destroy
+      @shift_cindy.destroy
+      @shift_job.destroy
     end
   
     # now run the tests:
@@ -88,6 +98,21 @@ class StoreTest < ActiveSupport::TestCase
     should "shows that there is one inactive store" do
       assert_equal 1, Store.inactive.size
       assert_equal ["Hazelwood"], Store.inactive.alphabetical.map{|s| s.name}
+    end
+
+    # test the method 'create_map_link_all'
+    should 'show the map link of all stores on one map' do
+      assert_equal "http://maps.google.com/maps/api/staticmap?zoom=11&size=500x500&maptype=roadmap&markers=color:red%7Ccolor:red%7Clabel:1%7C40.4435037,-79.9415706&markers=color:red%7Ccolor:red%7Clabel:2%7C40.4435037,-79.9415706&sensor=false", Store.create_map_link_all
+    end
+
+    # test the method 'create_map_link'
+    should 'show the map link of a store map' do
+      assert_equal "http://maps.google.com/maps/api/staticmap?center=\n      40.4435037,-79.9415706&zoom=13&size=500x500&maptype=roadmap&markers=color:red%7Ccolor:red%7Clabel:1%7C40.4435037,-79.9415706&sensor=false", @cmu.create_map_link
+    end
+
+    # test the method 'store_shift_hours' do
+    should 'return the total number of shift hours worked at a store' do
+      assert_equal 3, @cmu.store_shift_hours
     end
     
     # test the callback that gets store coordinates

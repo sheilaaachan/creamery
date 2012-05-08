@@ -6,7 +6,7 @@ class HomeController < ApplicationController
       @current_store = current_user.employee.current_assignment.store unless current_user.employee.current_assignment.nil?
 
       @active_employees = Employee.active.alphabetical.paginate(:page => params[:page]).per_page(10)
-      @star_employees = Employee.star_employees.paginate(:page => params[:page], :per_page => 10)
+      @star_employees = Employee.employee_hours_hash.paginate(:page => params[:page], :per_page => 10)
 
       @todays_shifts = Shift.for_next_days(1).chronological.reverse
       @incomplete_shifts = Shift.incomplete.chronological.reverse.paginate(:page => params[:page], :per_page => 10)

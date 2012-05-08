@@ -40,10 +40,9 @@ class Store < ActiveRecord::Base
       markers += "&markers=color:red%7Ccolor:red%7Clabel:#{i}%7C#{store.lat},#{store.lon}"
       i += 1
     end
-    lat = 40.44
-    lon = -79.9961
-    map = "http://maps.google.com/maps/api/staticmap?center=
-      #{lat},#{lon}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"
+    # lat = 40.44
+    # lon = -79.9961
+    map = "http://maps.google.com/maps/api/staticmap?zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"
   end
 
   def create_map_link(zoom=13, width=500, height=500)
@@ -70,8 +69,6 @@ class Store < ActiveRecord::Base
     coord = Geokit::Geocoders::GoogleGeocoder.geocode "#{self.street}, #{self.zip}, #{self.state}"
     if coord.success  
       self.lat, self.lon = coord.ll.split(',')
-    else
-      errors.add_to_base("Error with geocoding")
     end
   end
 

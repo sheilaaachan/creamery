@@ -78,11 +78,6 @@ class Employee < ActiveRecord::Base
     Employee.active.alphabetical.all.each do |employee|
       hash[employee] = employee.employee_hours
     end
-    return hash
-  end
-
-  def self.star_employees
-    hash = self.employee_hours_hash
     hash = hash.sort_by { |k,v| v }.reverse
     keys = []
     hash.each do |pair|

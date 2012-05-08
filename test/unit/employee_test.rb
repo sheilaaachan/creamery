@@ -58,6 +58,9 @@ class EmployeeTest < ActiveSupport::TestCase
       @alex = FactoryGirl.create(:employee, :first_name => "Alex", :last_name => "Heimann", :role => "admin")
       @assign_ed = FactoryGirl.create(:assignment, :employee => @ed, :store => @cmu)
       @assign_cindy = FactoryGirl.create(:assignment, :employee => @cindy, :store => @cmu, :end_date => nil)
+      @job = FactoryGirl.create(:job)
+      @shift_cindy = FactoryGirl.create(:shift, :assignment => @assign_cindy, :date => 2.days.ago)
+      @shift_job = FactoryGirl.create(:shift_job, :job => @job, :shift => @shift_cindy)
     end
     
     # and provide a teardown method as well
@@ -71,6 +74,9 @@ class EmployeeTest < ActiveSupport::TestCase
       @alex.destroy
       @assign_ed.destroy
       @assign_cindy.destroy
+      @job.destroy
+      @shift_cindy.destroy
+      @shift_job.destroy
     end
   
     # now run the tests:
@@ -160,5 +166,16 @@ class EmployeeTest < ActiveSupport::TestCase
       assert_equal 17, @cindy.age
       assert_equal 30, @kathryn.age
     end
+
+    # test the method 'employee_hours'
+    should "show the number of hours an employee has worked in the past 2 weeks" do
+      assert_equal 3, @cindy.employee_hours
+    end
+
+    # test the method 'employee_hours_hash'
+    should "should return an array of employees in order of shift hours" do
+      assert_equal [@cindy, @alex, @kathryn, @ed, @ben], Employee.employee_hours_hash
+    end
+
   end
 end
