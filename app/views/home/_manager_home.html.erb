@@ -1,4 +1,4 @@
-<h2>Welcome back, <%= current_user.employee.proper_name %></h2>
+<h2>Welcome back, <%= link_to current_user.employee.proper_name, employee_path(current_user.employee) %></h2>
 <h3>Store: <%= @current_store.name %></h3>
 <br><br><br><br>
 <div class="row">

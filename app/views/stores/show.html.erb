@@ -4,14 +4,16 @@
 		<%= render :partial => "store_details" %>
 	</div>
 	<% if logged_in? %>
-		<div class="span4">
-			<h3>Current Employees</h3>
-			<%= render :partial => "assigned_employees" unless @current_assignments.empty? %>
-			<br />
-			<% if current_user.employee.role == "admin" %>
-				<%= link_to raw("<i class='icon-plus icon-white'></i> Assign Employee"), new_assignment_path(:id => @store.id, :from => 'store'), :class => 'btn btn-primary' %>
-			<% end %>
-		</div>
+		<% unless current_user.employee.role == "employee" %>
+			<div class="span4">
+				<h3>Current Employees</h3>
+				<%= render :partial => "assigned_employees" unless @current_assignments.empty? %>
+				<br />
+				<% if current_user.employee.role == "admin" %>
+					<%= link_to raw("<i class='icon-plus icon-white'></i> Assign Employee"), new_assignment_path(:id => @store.id, :from => 'store'), :class => 'btn btn-primary' %>
+				<% end %>
+			</div>
+		<% end %>
 	<% end %>
 </div>
 
