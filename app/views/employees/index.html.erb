@@ -9,5 +9,6 @@
 		
 	</div>
 </div>
-
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Employee"), new_employee_path, :class => 'btn btn-primary', :id => 'Create Employee' %>
+<% if current_user.employee.role == "admin" %>
+	<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Employee"), new_employee_path, :class => 'btn btn-primary', :id => 'Create Employee' %>
+	<% end %>

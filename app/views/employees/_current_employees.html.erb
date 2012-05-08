@@ -9,17 +9,32 @@
     </tr>
   </thead>
   <tbody>
-    <% @employees.each do |employee| %>
-      <tr>
-        <td><%= link_to employee.name, employee_path(employee) %></td>
-				<td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
-				<td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
-        <td><%= employee.role.capitalize %></td>
-				<td>
-					<%= link_to raw("<i class='icon-file'></i> Details"), employee_path(employee), :class => 'btn btn-mini' %>
-          <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_employee_path(employee), :class => 'btn btn-mini' %>
-        </td>
-      </tr>
+    <% if current_user.employee.role == "admin" %>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= link_to employee.name, employee_path(employee) %></td>
+          <td><%= number_to_phone employee.phone unless employee.phone.nil?  %></td>
+          <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
+          <td><%= employee.role.capitalize %></td>
+          <td>
+            <%= link_to raw("<i class='icon-file'></i> Details"), employee_path(employee), :class => 'btn btn-mini' %>
+            <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_employee_path(employee), :class => 'btn btn-mini' %>
+          </td>
+        </tr>
+      <% end %>
+    <% elsif current_user.employee.role == "manager" %>
+      <% current_user.employee.current_assignment.store.assignments.current.each do |assign| %>
+        <tr>
+          <td><%= link_to assign.employee.name, employee_path(assign.employee) %></td>
+          <td><%= number_to_phone assign.employee.phone unless assign.employee.phone.nil?  %></td>
+          <td><%= link_to assign.employee.current_assignment.store.name, store_path(assign.employee.current_assignment.store) unless assign.employee.current_assignment.nil? %></td>
+          <td><%= assign.employee.role.capitalize %></td>
+          <td>
+            <%= link_to raw("<i class='icon-file'></i> Details"), employee_path(assign.employee), :class => 'btn btn-mini' %>
+            <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_employee_path(assign.employee), :class => 'btn btn-mini' %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

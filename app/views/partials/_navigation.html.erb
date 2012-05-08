@@ -17,7 +17,7 @@
   </ul>
   <% if logged_in? %>
     <p class="indent pull-right">
-      Welcome, <%= link_to current_user.employee.proper_name, user_path(current_user) %> | 
+      Welcome, <%= link_to current_user.employee.proper_name, employee_path(current_user.employee) %> | 
       <%= link_to "Logout", logout_path %>
     </p>
   <% else %>

@@ -19,8 +19,7 @@
 							<td class="centered"><%= store.employees.size %></td>
 							<td class="centered"><%= store.store_shift_hours %></td>
 			        <td>
-								<%#= link_to raw("<i class='icon-file'></i> Assign a employee"), assignment_path(:store_id => store.id, :from => @active_stores), :class => 'btn btn-mini' %>
-								<%= link_to raw("<i class='icon-file'></i> Assign a employee"), assignment_path :store => {:store_id => store.id}, :class => 'btn btn-mini' %>
+								<%= link_to raw("<i class='icon-file'></i> Assign a employee"), new_assignment_path(:id => store.id, :from => 'store'), :class => 'btn btn-mini' %>
 			        </td>
 			      </tr>
 			    <% end %>

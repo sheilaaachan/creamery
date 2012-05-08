@@ -6,7 +6,9 @@
 	<div class="span4">
 		<h3>Assignment History:</h3>
 		<%= render :partial => "assignment_history" unless @assignments.empty? %>
-		<%= link_to(raw("<i class='icon-plus icon-white'></i> New Assignment"), new_assignment_path(:id => @employee.id, :from => 'employee'), :class => 'btn btn-primary') %>
+		<% if current_user.employee.role == "admin" %>
+			<%= link_to(raw("<i class='icon-plus icon-white'></i> New Assignment"), new_assignment_path(:id => @employee.id, :from => 'employee'), :class => 'btn btn-primary') %>
+		<% end %>
 	</div>
 	<div class="span4">
 		<h3>Upcoming Shifts:</h3>
@@ -15,10 +17,12 @@
 </div>
 
 <div class="form-actions">
-	<% if @employee.user.nil? %>
+	<% if current_user.employee.role == "admin" %>
 		<%= link_to raw("<i class='icon-plus icon-white'></i> Add #{@employee.proper_name} as an User"), new_user_path, :class => 'btn btn-warning'  %>&nbsp;&nbsp;
 	<% end %>
   <%= link_to raw("<i class='icon-th-list'></i> Display All Employees"), employees_path, :class => 'btn'  %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-pencil'></i> Edit #{@employee.proper_name}"), edit_employee_path(@employee), :class => 'btn' %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-trash icon-white'></i> Delete #{@employee.proper_name}"), employee_path(@employee), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <% if current_user.employee.role == "admin" %>
+	  <%= link_to raw("<i class='icon-trash icon-white'></i> Delete #{@employee.proper_name}"), employee_path(@employee), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+	  <% end %>
 </div>
