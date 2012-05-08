@@ -17,7 +17,7 @@
 			      <tr>
 			        <td><%= link_to store.name, store_path(store) %></td>
 							<td class="centered"><%= store.employees.size %></td>
-							<td class="centered"><%= "bla" %></td>
+							<td class="centered"><%= store.store_shift_hours %></td>
 			        <td>
 								<%= link_to raw("<i class='icon-file'></i> Assign a employee"), assignment_path(:new), :class => 'btn btn-mini' %>
 			        </td>
@@ -39,15 +39,16 @@
 			  </thead>
 			  <tbody>
 			    <%# @active_employees.star_employees.each do |employee| %>
-			    <% @active_employees.each do |employee| %>
+			    <% @star_employees.each do |employee| %>
 			      <tr>
 			        <td><%= link_to employee.name, employee_path(employee) %></td>
 							<td class="centered"><%= employee.employee_hours %></td>
-			        <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) %></td>
+			        <td><%= link_to employee.current_assignment.store.name, store_path(employee.current_assignment.store) unless employee.current_assignment.nil? %></td>
 			      </tr>
 			    <% end %>
 			  </tbody>
 			</table>
+			<%# ------------------------------------paginate!------------------------------------ %>
 	</div>
 
 	<div class="span3">

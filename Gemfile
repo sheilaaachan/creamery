@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 gem 'sqlite3'
-gem 'will_paginate'
+gem 'will_paginate', :require => 'will_paginate/array'
 gem 'nifty-generators'
 gem 'simple_form'
 gem 'cancan'

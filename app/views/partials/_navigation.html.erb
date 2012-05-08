@@ -7,12 +7,6 @@
     <li><%= link_to "Shifts", shifts_path %></li>
     <li><%= link_to "Jobs", jobs_path %></li>
 
-<!--     <li align="right">
-      <%#= form_tag(search_path) do %>
-        <%#= text_field_tag('query', '', :size => 10) %>
-        <%#= submit_tag('Find') %>
-      <%# end %>
-    </li> -->
 
   </ul>
   <% if logged_in? %>
@@ -26,30 +20,3 @@
     </p>
   <% end %>
 </div> <!-- end of nav div -->
-
-
-
-
-
-
-
-<!-- <a class="btn btn-navbar" data-toggle="collapse" data-target=".collapse">
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-  <span class="icon-bar"></span>
-</a> -->
-<%# link_to "Home", home_path, :class => "brand" %>
-<!-- <a class="brand" href="#">Creamery</a> -->
-<!-- <div class="nav-collapse">
-  <ul class="nav">
-  	<li><%= link_to "Stores", stores_path %></li>
-  	<li><%= link_to "Users", users_path %></li>
-    <li><%= link_to "Employees", employees_path %></li>
-    <li><%= link_to "Assignments", assignments_path %></li>
-    <li><%= link_to "Shifts", shifts_path %></li>
-    <li><%= link_to "Jobs", jobs_path %></li>
-  </ul>
-</div> -->

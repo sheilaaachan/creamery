@@ -60,8 +60,8 @@ class Employee < ActiveRecord::Base
   # hours that an employee has worked in the past 2 weeks
   def employee_hours
     hours = 0
-    unless self.assignments.nil? || self.current_assignment.shifts.nil?
-      self.current_assignment.shifts.each do |shift|
+    unless (self.assignments.empty? || self.current_assignment.nil? || self.current_assignment.shifts.empty?)
+      self.current_assignment.shifts.completed.each do |shift|
         if [(Date.current - shift.date) <= 14]
           hours += (shift.end_time - shift.start_time)
         end
@@ -73,18 +73,22 @@ class Employee < ActiveRecord::Base
   end
 
   # a hash of key: employee_id, value: hours_worked
-  def employee_hours_hash
+  def self.employee_hours_hash
     hash = Hash.new()
-    self.each do |employee|
+    Employee.active.alphabetical.all.each do |employee|
       hash[employee] = employee.employee_hours
     end
     return hash
   end
 
-  def star_employees
+  def self.star_employees
     hash = self.employee_hours_hash
-    hash.sort_by { |k,v| v }
-    return hash.keys
+    hash = hash.sort_by { |k,v| v }.reverse
+    keys = []
+    hash.each do |pair|
+      keys.push(pair[0])
+    end
+    return keys
   end
 
 

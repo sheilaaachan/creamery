@@ -5,6 +5,7 @@
 			<th>Store</th>
       <th>Date</th>
       <th>Start Time</th>
+      <th>Completed</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
 				<td><%= link_to shift.assignment.store.name, store_path(shift.assignment.store) %></td>
         <td><%= shift.date.strftime("%m/%d/%y") %></td>
         <td><%= shift.start_time.strftime("%l:%M %p") %></td>
+        <td><%= shift.completed? ? "Yes" : "No" %></td>
         <td>
 					<%= link_to raw("Details"), shift_path(shift), :class => 'btn btn-mini' %>
         </td>

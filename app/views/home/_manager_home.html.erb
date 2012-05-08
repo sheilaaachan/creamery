@@ -15,15 +15,17 @@
 			  </thead>
 			  <tbody>
 			    <% @current_store.assignments.current.employees.alphabetical.active.each do |employee| %>
-			    	<% if @current_store.name == employee.current_assignment.store.name %>
-				      <tr>
-				        <td><%= link_to employee.name, employee_path(employee) %></td>
-								<td class="centered"><%= employee.employee_hours %></td>
-								<td><%= @last_shift.first.date %></td>
-				        <td>
-									<%= link_to raw("<i class='icon-file'></i>Add Shift"), shift_path(:new), :class => 'btn btn-mini' %>
-				        </td>
-				      </tr>
+			    	<% unless employee.current_assignment.nil? %>
+				    	<% if @current_store.name == employee.current_assignment.store.name %>
+					      <tr>
+					        <td><%= link_to employee.name, employee_path(employee) %></td>
+									<td class="centered"><%= employee.employee_hours %></td>
+									<td><%= @last_shift.first.date %></td>
+					        <td>
+										<%= link_to raw("<i class='icon-file'></i>Add Shift"), shift_path(:new), :class => 'btn btn-mini' %>
+					        </td>
+					      </tr>
+					    <% end %>
 				    <% end %>
 			    <% end %>
 			  </tbody>
@@ -56,5 +58,25 @@
 
 	<div class="span3">
 		<h3>Unrecorded Shifts</h3>
-			
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th>Employee</th>
+						<th>Start Time</th>
+			      <th>&nbsp;</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% @incomplete_shifts.each do |shift| %>
+			      <tr>
+			        <td><%= link_to shift.assignment.employee.name, employee_path(shift.assignment.employee) %></td>
+			        <td><%= shift.start_time %></td>
+							<td>
+								<%= link_to raw("<i class='icon-file'></i>Edit Shift"), shift_path(:edit), :class => 'btn btn-mini' %>
+			        </td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			</table>
 	</div>
+</div>

@@ -6,15 +6,42 @@ class Ability
     #
       user ||= User.new # guest user (not logged in)
       if (user.employee.role == "admin")
+        # admin has unlimited access in the system. 
         can :manage, :all
       elsif (user.employee.role == "manager")
-        can :edit, Employee
-        can :read, Employee
-        can :manage, Shift
+        # can edit the record of an employee from their store
+        can :edit, Employee do |employee|
+          my_employees = user.employee.store.employees.map{|p| p.id}
+          my_employees.include? employee.id 
+        end
+        # can view a list of all the employees that work in their store
+        can :index, Employee do |employee|
+          my_employees = user.employee.store.employees.map{|p| p.id}
+          my_employees.include? employee.id 
+        end
+        # can view the details of an employee in their store
+        can :show, Employee do |employee|
+          my_employees = user.employee.store.employees.map{|p| p.id}
+          my_employees.include? employee.id 
+        end
+        # can add a new shift to an employee in their store
+        # can edit an existing shift to an employee in their store
+        # can delete a shift from an employee in their store
+        # can list all current and upcoming shifts of employees in their store
+        # can list all completed shifts of employees in their store
+        # can view the shift details of shifts belonging to employees in their store
+        can :manage, Shift do |shift|
+          shifts = user.employee.store.shifts.map{|p| p.id}
+          shifts.include? shift.id 
+        end
       elsif (user.employee.role == "employee")
-        can :show, Employee
+        # can view their own employee details
+        can :show, Employee      
+        # can view details for their own shifts
         can :show, Shift
       else
+        # can view the generic home page
+        # can view the details page for a particular store
         can :read, Store
       end
     #

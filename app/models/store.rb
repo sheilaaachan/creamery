@@ -52,6 +52,16 @@ class Store < ActiveRecord::Base
       map = "http://maps.google.com/maps/api/staticmap?center=
       #{self.lat},#{self.lon}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"
   end
+
+  def store_shift_hours
+    count = 0
+    unless self.assignments.current.empty?
+      self.assignments.current.each do |assign|
+        count += assign.employee.employee_hours
+      end
+    end
+    return count
+  end
   
   # Callback code
   # -----------------------------
