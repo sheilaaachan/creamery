@@ -27,6 +27,8 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       redirect_to root_url, notice: "Thank you for signing up!"
+      ConfirmMailer.new_user_msg(@user).deliver
+      flash[:notice] = "#{@user.employee.name} to the Creamery and notified by email."
     else
       flash[:error] = "This user could not be created."
       render "new"

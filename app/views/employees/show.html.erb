@@ -15,6 +15,9 @@
 </div>
 
 <div class="form-actions">
+	<% if @employee.user.nil? %>
+		<%= link_to raw("<i class='icon-plus icon-white'></i> Add #{@employee.proper_name} as an User"), new_user_path, :class => 'btn btn-warning'  %>&nbsp;&nbsp;
+	<% end %>
   <%= link_to raw("<i class='icon-th-list'></i> Display All Employees"), employees_path, :class => 'btn'  %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-pencil'></i> Edit #{@employee.proper_name}"), edit_employee_path(@employee), :class => 'btn' %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-trash icon-white'></i> Delete #{@employee.proper_name}"), employee_path(@employee), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
