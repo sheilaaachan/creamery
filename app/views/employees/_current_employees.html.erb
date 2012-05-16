@@ -23,7 +23,7 @@
         </tr>
       <% end %>
     <% elsif current_user.employee.role == "manager" %>
-      <% current_user.employee.current_assignment.store.assignments.current.each do |assign| %>
+      <% @employees_for_store.each do |assign| %>
         <tr>
           <td><%= link_to assign.employee.name, employee_path(assign.employee) %></td>
           <td><%= number_to_phone assign.employee.phone unless assign.employee.phone.nil?  %></td>
@@ -38,4 +38,9 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @employees, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+    
+<% if current_user.employee.role == "admin" %>
+  <%= will_paginate @employees, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+<% elsif current_user.employee.role == "manager" %>
+  <%= will_paginate @employees_for_store, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+<% end %>
