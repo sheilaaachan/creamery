@@ -9,9 +9,11 @@ class HomeController < ApplicationController
       @star_employees = Employee.employee_hours_hash.paginate(:page => params[:page], :per_page => 10)
 
       @todays_shifts = Shift.for_next_days(1).chronological.reverse
-      @incomplete_shifts = Shift.incomplete.chronological.reverse.paginate(:page => params[:page], :per_page => 10)
+      @incomplete_shifts = Shift.past.incomplete.chronological.reverse.paginate(:page => params[:page], :per_page => 10)
       @past_shifts = current_user.employee.shifts.past
       @upcoming_shifts = current_user.employee.shifts.for_next_days(14)
+
+      @current_assignments = @current_store.assignments.current.paginate(:page => params[:page], :per_page => 10) unless current_user.employee.current_assignment.nil?
     end
     @active_stores2 = Store.active.alphabetical.all
   end

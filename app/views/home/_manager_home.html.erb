@@ -14,7 +14,7 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <% @current_store.assignments.current.each do |assign| %>
+			    <% @current_assignments.each do |assign| %>
 			    	<% unless current_user.employee.current_assignment.nil? %>
 				    	<% if assign.store.name == current_user.employee.current_assignment.store.name %>
 					      <tr>
@@ -30,31 +30,35 @@
 			    <% end %>
 			  </tbody>
 			</table>
-		
+		<%= will_paginate @current_assignments, :previous_label => "<&nbsp;", :next_label => "&nbsp;>" %>
 	</div>
 
 	<div class="span3">
 		<h3>Today's Scheduled Shifts</h3>
-			<table class="table table-striped">
-			  <thead>
-			    <tr>
-			      <th>Employee</th>
-						<th>Start Time</th>
-			      <th>&nbsp;</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <% @todays_shifts.each do |shift| %>
-			      <tr>
-			        <td><%= link_to shift.assignment.employee.name, employee_path(shift.assignment.employee) %></td>
-			        <td><%= shift.start_time.strftime("%l:%M %p") %></td>
-							<td>
-								<%= link_to raw("<i class='icon-file'></i> Edit"), edit_shift_path(shift), :class => 'btn btn-mini' %>
-			        </td>
-			      </tr>
-			    <% end %>
-			  </tbody>
-			</table>
+			<% if @todays_shifts.empty? %>
+				<br><h4>There are no scheduled shifts for today.</h4>
+			<% else %>
+				<table class="table table-striped">
+				  <thead>
+				    <tr>
+				      <th>Employee</th>
+							<th>Start Time</th>
+				      <th>&nbsp;</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <% @todays_shifts.each do |shift| %>
+				      <tr>
+				        <td><%= link_to shift.assignment.employee.name, employee_path(shift.assignment.employee) %></td>
+				        <td><%= shift.start_time.strftime("%l:%M %p") %></td>
+								<td>
+									<%= link_to raw("<i class='icon-file'></i> Edit"), edit_shift_path(shift), :class => 'btn btn-mini' %>
+				        </td>
+				      </tr>
+				    <% end %>
+				  </tbody>
+				</table>
+			<% end %>
 	</div>
 
 	<div class="span4">
